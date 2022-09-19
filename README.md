@@ -1,4 +1,4 @@
-# Adag.io- Flynn McCallum and Queenie Sun
+# Adag.io - Flynn McCallum and Queenie Sun
 
 Description:
 Adag.io is a convolusional neural network designed to input music and output the corresponding chords. 
