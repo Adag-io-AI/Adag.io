@@ -8,7 +8,7 @@ import matplotlib.pyplot as plt
 
 
 
-#fuck you queenie you prick
+
 
 #major A piano chord sample
 example_file = "dataset/Piano_Major/Grand Piano - Fazioli - major A middle.wav"
@@ -20,7 +20,8 @@ y, sr = librosa.load(example_file, offset=0, duration=1.0)
 melspectrogram = librosa.feature.melspectrogram(y=y, sr=sr)
 #the chromagram is our pitch class profile with all the notes on a scale, there is a threshold 
 #that i dont entirely understand the workings of, but most of this stuff is on libros's website
-chroma = librosa.feature.chroma_cqt(y=y, sr=sr, fmin=65.4, threshold=.4, n_chroma = 12)
+y_harm = librosa.effects.harmonic(y=y, margin=4)
+chroma = librosa.feature.chroma_cqt(y=y_harm, sr=sr, fmin=65.4, threshold=.4, n_chroma = 12)
 
 
 #pyplot.imshow(chromagram, interpolation='nearest', aspect='auto') 
@@ -39,14 +40,10 @@ fig.colorbar(img, ax=ax)
 plt.show()
 
 
-#this nonsense doesnt work yet
-#makes the array wrong, need to look up how to convert the chromagram to a vector that looks like 
-#[0,0,1,0,0,0,1,0,0,1]
-#need to normalize the average signal from each row of the chromagram to either a 1 or a 0 with 
-#a threshold that gets rid of pitches that we dont want included into the chord, which is what makes
-#more elaborate chords more difficult, bc even this audio file is very clear and simple and
-#pitches that arent being played are still showing up
+#means out array to 0s and 1s based on a threshold of .1 average
 chroma_array = numpy.array(chroma)
-print(chroma_array)
-librosa.util.normalize(chroma_array, norm = 1, threshold = .4, fill = False)
-print(chroma_array)
+#print(chroma_array)
+chroma_average = chroma_array.mean(axis=1)
+chroma_average[chroma_average<.1] = 0
+chroma_average[chroma_average>=.1] = 1
+print(chroma_average)
