@@ -7,7 +7,7 @@ import librosa.display
 import matplotlib.pyplot as plt
 
 # major A piano chord sample
-example_file = "dataset/Synth_dist_Major7/01 Amaj7.wav"
+example_file = "song_samples/karate(A Major).wav"
 # librosa loads the file with y=audio wav, and sr is the sample rate
 # duration is just 1 second
 y, sr = librosa.load(example_file, offset=0, duration=1.0)

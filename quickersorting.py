@@ -6,7 +6,7 @@ import pathlib
 Path1 = "C:/Users/Flynn/Documents/GitHub/Adag.io/"
 DPath = "C:/Users/Flynn/Documents/GitHub/Adag.io/dataset/"
 
-original_folder = 'dataset_by_instrument/orchestra/'
+original_folder = 'dataset_by_instrument/real guitar eshape/'
 
 endfolders = ["A Major","A# Major","B Major","C Major","C# Major",
               "D Major","D# Major","E Major","F Major","F# Major",
