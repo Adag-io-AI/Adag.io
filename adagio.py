@@ -19,7 +19,7 @@ class audio_input(object):
         self.FORMAT = pyaudio.paFloat32
         self.CHANNELS = 1
         self.RATE = 44100
-        self.CHUNK = 1024 * 16
+        self.CHUNK = 1024 * 20
         self.p = None
         self.stream = None
 
