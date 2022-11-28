@@ -11,9 +11,7 @@ from keras import layers
 from keras import models
 
 
-seed = 99
-tf.random.set_seed(seed)
-numpy.random.seed(seed)
+
 
 def getChroma(file):
     y, sr = librosa.load(file, offset=0, duration=1.0)
@@ -50,18 +48,20 @@ for chord in chords:
 
 print(labels)
 
-permutations = numpy.random.permutation(1056)
+numpy.random.seed(99)
+
+permutations = numpy.random.permutation(1248)
 features = numpy.array(features)[permutations]
 labels = numpy.array(labels)[permutations]
 
-features_train = features[0:633]
-labels_train = labels[0:633]
+features_train = features[0:749]
+labels_train = labels[0:749]
 
-features_val = features[633:844]
-labels_val = labels[633:844]
+features_val = features[749:998]
+labels_val = labels[749:998]
 
-features_test = features[844:1056]
-labels_test = labels[844:1056]
+features_test = features[998:1248]
+labels_test = labels[998:1248]
 
 ####################################################
 
@@ -80,9 +80,14 @@ model.compile(
     # List of metrics to monitor
     metrics=[keras.metrics.SparseCategoricalAccuracy()],
 )
-model.fit(x=features_train.tolist(),y=labels_train.tolist(),verbose=1,validation_data=(features_val.tolist() , labels_val.tolist()), epochs=32)
+model.fit(x=features_train.tolist(),
+          y=labels_train.tolist(),
+          verbose=1,
+          validation_data=(features_val.tolist(), labels_val.tolist()),
+          epochs=32
+          )
 
-model.save('test_model1.h5')
+model.save('test_model2.h5')
 
 
 score = model.evaluate(x=features_test.tolist(),y=labels_test.tolist(), verbose=0)
